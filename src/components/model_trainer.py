@@ -41,4 +41,14 @@ class ModelTrainer:
         
         except Exception as e:
             raise CustomException(e,sys)
-        
+
+    def train_user_based_svd(self, X):#
+        svd_user_based = TruncatedSVD(n_components=20, random_state=42)
+        X_reduced = svd_user_based.fit_transform(X)  # Fit SVD on the user-item matrix directly
+        predicted_ratings=np.dot(X_reduced, svd_user_based.components_)
+
+        # Save the predicted_ratings and the SVD model
+        save_object(predicted_ratings, os.path.join('artifacts', 'predicted_ratings.pkl'))
+        save_object(svd_user_based, os.path.join('artifacts', 'svd_user_based_model.pkl'))
+        logging.info("train_user_based_svd is saved")
+    # Call this function as part of your training pipeline

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Recommendations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recommendations for You</h1>
+    {% if recommendations %}
+        <table>
+            <tr>
+                <!-- Table headers -->
+                <th>Movie ID</th>
+                <th>Title</th>
+                <th>Genres</th>
+                <th>Predicted Rating</th>
+            </tr>
+            {% for movie in recommendations %}
+                <tr>
+                    <!-- Movie details -->
+                    <td>{{ movie['movieId'] }}</td>
+                    <td>{{ movie['title'] }}</td>
+                    <td>{{ movie['genres'] }}</td>
+                    <td>{{ movie['predicted_rating'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No recommendations found.</p>
+    {% endif %}
+    <a href="/user-recommend">Try another User ID</a>
+    <a href="/">Back to Home</a>
+</body>
+</html>

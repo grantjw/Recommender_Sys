@@ -54,3 +54,4 @@ if __name__=="__main__":
 
     modeltrainer=ModelTrainer()
     print(modeltrainer.initiate_model_trainer(X, user_mapper, movie_mapper, user_inv_mapper, movie_inv_mapper))
+    modeltrainer.train_user_based_svd(X)
