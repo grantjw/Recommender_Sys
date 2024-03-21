@@ -32,3 +32,16 @@ def evaluate_model(svd):
         
     except Exception as e:
         raise CustomException(e, sys)
+    
+def load_object(file_path):
+    """
+    Loads an object from the specified file path.
+    
+    Parameters:
+        file_path (str): The path to the file from which to load the object.
+        
+    Returns:
+        The object loaded from the file.
+    """
+    with open(file_path, 'rb') as file_obj:
+        return dill.load(file_obj)

@@ -5,5 +5,5 @@ matplotlib
 scikit-learn
 scipy
 dill
-
+flask
 -e .

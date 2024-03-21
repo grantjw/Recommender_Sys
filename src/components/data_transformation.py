@@ -70,7 +70,31 @@ class DataTransformation:
                     X, user_mapper, movie_mapper, user_inv_mapper, movie_inv_mapper,
                     self.data_transformation_config.sparse_matrix_path, 
                     self.data_transformation_config.mapping_files_path)
-        
+        except Exception as e:
+            raise CustomException(e, sys)
+    def save_title_id_mapping(self, movies_data_path):
+        try:
+            movies = pd.read_csv(movies_data_path)
+            """
+            Saves a mapping from movie titles to movie IDs.
+            """
+            title_id_mapping = dict(zip(movies['title'], movies['movieId']))
+            save_object(title_id_mapping, os.path.join('artifacts', 'title_id_mapping.pkl'))
+            logging.info("Title to ID mapping has been saved successfully")
         except Exception as e:
             raise CustomException(e, sys)
 
+    # Add to the data_transformation.py script
+
+    def save_id_to_title_mapping(self, movies_data_path):
+        try:
+            movies = pd.read_csv(movies_data_path)
+            """
+            Saves a mapping from movie IDs to titles.
+            """
+            id_to_title_mapping = dict(zip(movies['movieId'], movies['title']))
+            save_object(id_to_title_mapping, os.path.join('artifacts', 'id_to_title_mapping.pkl'))
+            logging.info("ID to title mapping has been saved successfully")
+        except Exception as e:
+            raise CustomException(e, sys)
+        
