@@ -5,19 +5,30 @@
     <title>Similar Movies</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        .genre-badge {
-            margin-right: 10px; /* Adjust the margin as needed */
-        }
         .imdb-button {
-            margin-left: auto; /* This will push the button to the far right */
+            margin-left: 10px; /* Space between the genre and the button */
         }
+        .genre-label {
+            margin-right: 20px; /* Adjust this value to decrease the space between the title and the genre */
+            background-color: #048c7f; /* Bootstrap warning color, you can change it to any color you prefer */
+            border-radius: 0.25rem;
+            padding: 0.25em 0.6em;
+            font-size: 75%;
+            font-weight: 700;
+            color: white; /* Text color */
+            vertical-align: baseline;
+            display: inline-block; /* Keeps it inline with text */
+        }
+        /* Additional styles to ensure consistent spacing */
         .list-group-item {
             display: flex;
-            align-items: center; /* This ensures vertical centering */
+            align-items: center;
+            justify-content: space-between;
         }
-        .movie-title {
-            margin-right: 0.5rem; /* Adjust the right margin */
-            flex-grow: 1; /* Allows the title to take up available space */
+        .movie-title-genre {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -26,9 +37,11 @@
     <div class="list-group mt-3">
         {% for movie in similar_movies %}
             <div class="list-group-item">
-                <span class="movie-title">{{ movie.title }}</span>
-                <span class="badge badge-secondary genre-badge">{{ movie.genres }}</span>
-                <a href="https://www.imdb.com/find/?q={{ movie.title | replace(' ', '%20') }}&ref_=nv_sr_sm" target="_blank" class="btn btn-warning imdb-button">Search on IMDb</a>
+                <div class="movie-title-genre">
+                    <span>{{ movie.title }}</span>
+                    <span class="genre-label">{{ movie.genres }}</span>
+                </div>
+                <a href="https://www.imdb.com/find?q={{ movie.title | replace(' ', '%20') }}" target="_blank" class="btn btn-warning imdb-button">Search on IMDb</a>
             </div>
         {% endfor %}
     </div>
