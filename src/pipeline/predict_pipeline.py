@@ -11,9 +11,10 @@ class PredictPipeline:
     def __init__(self):
         self.model_path = os.path.join('artifacts', 'model.pkl')
         self.mapping_files_path = os.path.join('artifacts', 'mappings.pkl')
+        self.id_to_genre_mapping_path = os.path.join('artifacts', 'id_to_genre_mapping.pkl')
         self.title_id_mapping_path = os.path.join('artifacts', 'title_id_mapping.pkl')
-        self.id_to_title_mapping_path = os.path.join('artifacts', 'id_to_title_mapping.pkl')  # Add this line
-        
+        self.id_to_title_mapping_path = os.path.join('artifacts', 'id_to_title_mapping.pkl')  
+
         self.Q = load_object(self.model_path)
         mappings = load_object(self.mapping_files_path) 
         self.movie_mapper = mappings['movie_mapper']
@@ -21,6 +22,7 @@ class PredictPipeline:
         self.user_mapper = mappings['user_mapper']
         self.title_id_mapping = load_object(self.title_id_mapping_path)
         self.id_to_title_mapping = load_object(self.id_to_title_mapping_path)  # Load the mapping
+        self.id_to_genre_mapping = load_object(self.id_to_genre_mapping_path)  # Load the mapping
         # Load Movie Lens Data
         self.movies = pd.read_csv(DataIngestionConfig().movies_data_path)
         self.ratings = pd.read_csv(DataIngestionConfig().ratings_data_path)
@@ -33,7 +35,18 @@ class PredictPipeline:
         Retrieves a movie title for a given ID.
         """
         return self.id_to_title_mapping.get(movie_id)
-    # Inside PredictPipeline class in predict_pipeline.py
+
+    def get_genre_by_movie_id(self, movie_id):
+        """
+        Retrieves the genre(s) for a given movie ID.
+
+        Parameters:
+            movie_id (int): The ID of the movie.
+        
+        Returns:
+            str: The genre(s) of the movie, or "Unknown" if not found.
+        """
+        return self.id_to_genre_mapping.get(movie_id, "Unknown")
 
     def get_all_movie_titles(self):
         """

@@ -1,40 +1,37 @@
-<!-- results.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Similar Movies</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        .genre-badge {
+            margin-right: 10px; /* Adjust the margin as needed */
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .imdb-button {
+            margin-left: auto; /* This will push the button to the far right */
         }
-        li {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f0f0f0;
-            width: fit-content;
+        .list-group-item {
+            display: flex;
+            align-items: center; /* This ensures vertical centering */
         }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+        .movie-title {
+            margin-right: 0.5rem; /* Adjust the right margin */
+            flex-grow: 1; /* Allows the title to take up available space */
         }
     </style>
 </head>
-<body>
-    <h1>Similar Movies:</h1>
-    <ul>
-        {% for title in movie_titles %}
-            <li>{{ title }}</li>
+<body class="container">
+    <h1 class="mt-5">Similar Movies:</h1>
+    <div class="list-group mt-3">
+        {% for movie in similar_movies %}
+            <div class="list-group-item">
+                <span class="movie-title">{{ movie.title }}</span>
+                <span class="badge badge-secondary genre-badge">{{ movie.genres }}</span>
+                <a href="https://www.imdb.com/find/?q={{ movie.title | replace(' ', '%20') }}&ref_=nv_sr_sm" target="_blank" class="btn btn-warning imdb-button">Search on IMDb</a>
+            </div>
         {% endfor %}
-    </ul>
-    <a href="/">Try another movie</a>
+    </div>
+    <a href="/" class="btn btn-primary mt-3">Try another movie</a>
 </body>
 </html>

@@ -97,4 +97,15 @@ class DataTransformation:
             logging.info("ID to title mapping has been saved successfully")
         except Exception as e:
             raise CustomException(e, sys)
-        
+    
+    def save_id_to_genre_mapping(self, movies_data_path):#
+        """
+        Saves a mapping from movie IDs to genres.
+        """
+        try:
+            movies = pd.read_csv(movies_data_path)
+            id_to_genre_mapping = dict(zip(movies['movieId'], movies['genres']))
+            save_object(id_to_genre_mapping, os.path.join('artifacts', 'id_to_genre_mapping.pkl'))
+            logging.info("ID to genre mapping has been saved successfully")
+        except Exception as e:
+            raise CustomException(e, sys)

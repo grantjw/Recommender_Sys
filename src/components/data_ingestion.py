@@ -51,6 +51,7 @@ if __name__=="__main__":
     X, user_mapper, movie_mapper, user_inv_mapper, movie_inv_mapper, _, _= data_transformation.initiate_data_transformation(ratings_data_path)
     data_transformation.save_title_id_mapping(movies_data_path)
     data_transformation.save_id_to_title_mapping(movies_data_path)
+    data_transformation.save_id_to_genre_mapping(movies_data_path)
 
     modeltrainer=ModelTrainer()
     print(modeltrainer.initiate_model_trainer(X, user_mapper, movie_mapper, user_inv_mapper, movie_inv_mapper))

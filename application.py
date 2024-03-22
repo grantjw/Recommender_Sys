@@ -22,8 +22,14 @@ def predict():
         return "Movie not found", 404
     
     similar_movies_ids = predict_pipeline.find_similar_movies(movie_id)
-    similar_movies_titles = [predict_pipeline.get_title_by_movie_id(id) for id in similar_movies_ids]
-    return render_template('results.html', movie_titles=similar_movies_titles)
+    similar_movies = []
+    for id in similar_movies_ids:
+        title = predict_pipeline.get_title_by_movie_id(id)
+        genres = predict_pipeline.get_genre_by_movie_id(id)
+        similar_movies.append({"title": title, "genres": genres})
+    
+    return render_template('results.html', similar_movies=similar_movies)
+
 
 
 @app.route('/user-recommend', methods=['GET', 'POST'])#
