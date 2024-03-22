@@ -35,4 +35,4 @@ def user_recommend():
     return render_template('user_recommend_form.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0")
